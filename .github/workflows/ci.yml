@@ -1,0 +1,27 @@
+# .github/workflows/ci.yml
+name: Continuous Integration Assembly Line
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-codebase:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download repository code to cloud server
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js language engine
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install dependencies (Download Jest)
+      run: npm install
+
+    - name: Trigger automated test suite
+      run: npm run test
